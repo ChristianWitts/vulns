@@ -1,0 +1,16 @@
+---
+- name: Download, install, and configure vulns
+  block:
+    - file:
+        state: directory
+        path: $GOPATH/src/github.com/future-architect
+    - git:
+        repo: 'https://github.com/future-architect/vuls.git'
+        dest: $GOPATH/src/github.com/future-architect/vuls
+    - make:
+        chdir: $GOPATH/src/github.com/future-architect/vuls
+        target: install
+  environment:
+    GOROOT: /usr/local/go
+    GOPATH: /root/go
+    PATH: $PATH:$GOROOT/bin:$GOPATH/bin

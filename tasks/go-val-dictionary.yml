@@ -1,0 +1,17 @@
+---
+- name: Download, install, and configure goval-dictionary
+  block:
+    - git:
+        repo: 'https://github.com/kotakanbe/goval-dictionary.git'
+        dest: $GOPATH/src/github.com/kotakanbe/goval-dictionary
+    - make:
+        chdir: $GOPATH/src/github.com/kotakanbe/goval-dictionary
+        target: install
+    - shell: |
+        goval-dictionary fetch-redhat 7
+      args:
+        executable: /usr/bin/sh
+  environment:
+    GOROOT: /usr/local/go
+    GOPATH: /root/go
+    PATH: $PATH:$GOROOT/bin:$GOPATH/bin

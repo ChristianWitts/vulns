@@ -1,2 +1,7 @@
 ---
-# tasks file for vulns
+- include: go.yml
+- include: go-cve-dictionary.yml
+- include: go-val-dictionary.yml
+- include: gost.yml
+- include: go-exploitdb
+- include: vulns

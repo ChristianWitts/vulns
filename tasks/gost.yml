@@ -1,0 +1,29 @@
+---
+- name: Create gost log directory
+  file:
+    state: directory
+    path: /var/log/gost
+    owner: centos
+    mode: 0700
+  with_items:
+    - /var/log/vulns
+
+- name: Download, install, and configure gost
+  block:
+    - file:
+        state: directory
+        path: $GOPATH/src/github.com/knqyf263
+    - git:
+        repo: 'https://github.com/knqyf263/gost.git'
+        dest: $GOPATH/src/github.com/knqyf263/gost
+    - make:
+        chdir: $GOPATH/src/github.com/knqyf263/gost
+        target: install
+    - shell: |
+        gost fetch redhat --after 2016-01-01   
+      args:
+        executable: /usr/bin/sh
+  environment:
+    GOROOT: /usr/local/go
+    GOPATH: /root/go
+    PATH: $PATH:$GOROOT/bin:$GOPATH/bin

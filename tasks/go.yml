@@ -1,0 +1,29 @@
+---
+- name: "Install development tools"
+  yum:
+    name:
+      - sqlite
+      - git
+      - gcc
+      - make
+      - wget
+    state: present
+
+- name: Download and unarchive the Go binary
+  unarchive:
+    src: https://dl.google.com/go/go1.12.4.linux-amd64.tar.gz
+    dest: /usr/local/go
+    remote_src: yes
+
+- name: Create go homedir
+  file:
+    state: directory
+    path: /root/go
+
+- name: Add Go variables to the environment
+  blockinfile:
+    dest: /etc/profile.d/goenv.sh
+    block: |
+      export GOROOT=/usr/local/go
+      export GOPATH=/root/go
+      export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
