@@ -11,10 +11,7 @@
         chdir: $GOPATH/src/github.com/kotakanbe/goval-dictionary
         target: install
     - name: Fetch the dictionary entries for RHEL7
-      shell: |
-        goval-dictionary fetch-redhat 7
-      args:
-        executable: /usr/bin/sh
+      command: goval-dictionary fetch-redhat 7
   environment:
     GOROOT: /usr/local/go
     GOPATH: /root/go

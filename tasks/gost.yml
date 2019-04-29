@@ -18,16 +18,13 @@
       git:
         repo: 'https://github.com/knqyf263/gost.git'
         dest: $GOPATH/src/github.com/knqyf263/gost
-        version: HEAD
+        version: 39175c0
     - name: make install gost
       make:
         chdir: $GOPATH/src/github.com/knqyf263/gost
         target: install
     - name: Fetch all RHEL CVEs post 2016
-      shell: |
-        gost fetch redhat --after 2016-01-01
-      args:
-        executable: /usr/bin/sh
+      command: gost fetch redhat --after 2016-01-01
   environment:
     GOROOT: /usr/local/go
     GOPATH: /root/go
