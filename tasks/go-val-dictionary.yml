@@ -1,13 +1,17 @@
 ---
 - name: Download, install, and configure goval-dictionary
   block:
-    - git:
+    - name: Clone the source repository
+      git:
         repo: 'https://github.com/kotakanbe/goval-dictionary.git'
         dest: $GOPATH/src/github.com/kotakanbe/goval-dictionary
-    - make:
+        version: v0.1.1
+    - name: make install the goval-dictionary
+      make:
         chdir: $GOPATH/src/github.com/kotakanbe/goval-dictionary
         target: install
-    - shell: |
+    - name: Fetch the dictionary entries for RHEL7
+      shell: |
         goval-dictionary fetch-redhat 7
       args:
         executable: /usr/bin/sh

@@ -1,13 +1,17 @@
 ---
 - name: Download, install, and configure vulns
   block:
-    - file:
+    - name: Create source directory
+      file:
         state: directory
         path: $GOPATH/src/github.com/future-architect
-    - git:
+    - name: Clone source repository
+      git:
         repo: 'https://github.com/future-architect/vuls.git'
         dest: $GOPATH/src/github.com/future-architect/vuls
-    - make:
+        version: v0.7.0
+    - name: make install vulns
+      make:
         chdir: $GOPATH/src/github.com/future-architect/vuls
         target: install
   environment:

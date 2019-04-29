@@ -10,17 +10,22 @@
 
 - name: Download, install, and configure gost
   block:
-    - file:
+    - name: Create the source directory
+      file:
         state: directory
         path: $GOPATH/src/github.com/knqyf263
-    - git:
+    - name: Clone source repository
+      git:
         repo: 'https://github.com/knqyf263/gost.git'
         dest: $GOPATH/src/github.com/knqyf263/gost
-    - make:
+        version: HEAD
+    - name: make install gost
+      make:
         chdir: $GOPATH/src/github.com/knqyf263/gost
         target: install
-    - shell: |
-        gost fetch redhat --after 2016-01-01   
+    - name: Fetch all RHEL CVEs post 2016
+      shell: |
+        gost fetch redhat --after 2016-01-01
       args:
         executable: /usr/bin/sh
   environment:

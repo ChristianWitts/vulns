@@ -3,5 +3,5 @@
 - include: go-cve-dictionary.yml
 - include: go-val-dictionary.yml
 - include: gost.yml
-- include: go-exploitdb
-- include: vulns
+- include: go-exploitdb.yml
+- include: vulns.yml
